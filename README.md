@@ -81,3 +81,5 @@ To restore the starter data, close the application and delete the `data/` direct
 
 ## Contributors
 **Marc Tristan Victoria (https://github.com/marccvictoria)**
+
+**Denise Jade Barela (https://github.com/denlxe)**
