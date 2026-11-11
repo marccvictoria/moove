@@ -1,19 +1,83 @@
---- 
-### moove
----
+# Moo-ve Dairy
 
-**components and ui package**
+**Moving local dairy forward.**
 
-In the moove/src, the package components and ui has everything the user interacts with on the screen. StatCard is a visual box that shows a statistic. The FormDialog and InventoryDialogs are pop-up windows like when you click to add a new block of cheese to the inventory, this appears with text boxes to type in. The ui holds these smaller components together.
+*Moo-ve Dairy is a desktop management application designed to track raw milk deliveries, manage product inventory, and handle daily transactions for local dairy operations.*
 
-**model package**
+## Overview
 
-The package model has the "actors" of this management and has the information structure for these classes. These are the inventory items, the manager, and the clerk. A cheese, for example, like other products, has id, name, description, price, quantity, shelfLifeDays, etc.Other classes that are not necessarily actors but holds data are also found here. The CashWithdrawal class tracks money moving out. It had fields like amount and purpose.
+*Moo-ve helps manage the flow of dairy products from raw milk delivery to sales. It gives clerks and managers a simple dashboard to oversee inventory levels, handle sales, record production batches, and monitor financial transactions.*
 
-**service package and the moove folder**
+## Features
 
-The service package contains classes that reaches out to the data folder to load, save, or update information. The moove folder in the project has "data" that contains the csv files/database which contains inventory, transactions, product flow, etc. A service class reads this and bring them to the app. The moove folder also has "resources" folder that contains the css(has css file that controls the colors, fonts, button sizes, themes, etc.), fonts(ttf files of text styles), and images(icons, logos) folder. 
+### Product Management
+- Create and manage dairy products like cheeses, milk, and butter.
+- Organize products by category.
+- Update product information and pricing.
+- Activate or deactivate products.
+- Search and browse the product catalog.
 
-**exception package**
+### Inventory Management
+- Track raw milk inventory and deliveries.
+- Record production batches and restocking activities.
+- Monitor stock levels by product and batch.
+- Track product freshness and expiration dates.
+- Apply earliest-expiry-first inventory allocation.
+- Record expired stock write-offs.
+- Manage financial movements like cash withdrawals
 
-The package exception contains Exception subclasses that uses Java's error handling mechanism. The AgriException, StorageException, and PermissionException alarms for specific failures like a database storage error, calculation rule failing, or a user trying to click a button they aren't allowed to use. The InsufficientFundsException is an alarm for trying to withdraw money or buy something when digital wallet is empty.The AuthenticationException is thrown for wrong password and ValidationException when letters are typed into a text box that only accepts numbers.
+## Architecture
+
+
+```text
+src/
+├── main/          # Application entry point
+├── ui/            # Screens and dashboards
+├── components/    # Reusable UI components
+├── service/       # Business logic and data storage
+├── model/         # Domain models and entities
+├── exception/     # Custom exception classes
+└── util/          # Validation and formatting helpers
+
+resources/
+├── css/           # Application stylesheets
+├── fonts/         # Bundled fonts
+└── images/        # Logos and visual assets
+
+data/              # CSV data files
+```
+
+### Application Flow
+
+The UI communicates with the system through `AgriSystem`, which handles permissions, validation, and business operations before changes are persisted.
+
+## Code Walkthrough
+
+- **Application initialization** – `main.Main` [AppInitialization.md](AppInitialization.md) 
+- **Domain models** – `model` [DomainModels.md](DomainModels.md) 
+- **Business logic** – `service.AgriSystem` [BusinessLogic.md](BusinessLogic.md) 
+- **User interface** – `ui` [UserInterface.md](UserInterface.md) 
+- **Reusable components** – `components` [ReusableComponents.md](ReusableComponents.md) 
+- **Data persistence** – `service.DataStore` and `service.Csv` [DataPersistence.md](DataPersistence.md) 
+- **Validation and formatting** – `util` [Validation.md](Validation.md) 
+
+## Data Storage
+
+Moo-ve uses local CSV files to store application data.
+
+The `data/` directory is generated automatically on the first run.
+
+| File | Description |
+|---|---|
+| users.csv | User accounts and roles |
+| products.csv | Product catalog |
+| batches.csv | Production batches and stock |
+| intakes.csv | Raw milk delivery records |
+| transactions.csv | Financial and inventory transactions |
+| sale_items.csv | Individual sale items |
+| meta.csv | System counters and inventory metadata |
+
+To restore the starter data, close the application and delete the `data/` directory.
+
+## Contributors
+**Marc Tristan Victoria (https://github.com/marccvictoria)**
