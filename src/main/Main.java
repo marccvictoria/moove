@@ -1,8 +1,8 @@
 /** *********************************************************
  * 
- * <Title>
- * Program Description: <text>
- * 
+ * Moove
+ * Program Description: An dairy-based agricultural data management system.
+ * AI Use Disclosure: 
  *
  * @author Marc Tristan Victoria
  * @author	Denise Jade Barela
