@@ -14,6 +14,7 @@ import model.SaleItem;
 import model.Transaction;
 import model.User;
 import model.WriteOff;
+import model.Donation;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -139,6 +140,13 @@ class DataStore {
         String f5 = "";
         if (t instanceof Sale) {
             f1 = Double.toString(((Sale) t).getCashReceived());
+        } else if (t instanceof Donation) { 
+        	Donation d = (Donation) t;
+            f1 = d.getDonorName();
+            f2 = d.getKind().name();
+            f3 = Double.toString(d.getAmount());
+            f4 = d.getItemName();
+            f5 = Integer.toString(d.getItemQuantity());
         } else if (t instanceof ProcessingFee) {
             ProcessingFee fee = (ProcessingFee) t;
             f1 = fee.getFarmerName();
@@ -248,6 +256,10 @@ class DataStore {
                     case "SALE":
                         t = new Sale(id, when, by, itemsBySale.getOrDefault(id, new ArrayList<>()),
                                 Double.parseDouble(r.get(8)));
+                        break;
+                    case "DONATION":
+                        t = new Donation(id, when, by, r.get(8), Donation.Kind.valueOf(r.get(9)),
+                                Double.parseDouble(r.get(10)), r.get(11), Integer.parseInt(r.get(12)));
                         break;
                     case "FEE":
                         t = new ProcessingFee(id, when, by, r.get(8),
