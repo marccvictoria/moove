@@ -1,4 +1,1 @@
 id,type,timestamp,recordedBy,status,voidedBy,voidedAt,voidReason,f1,f2,f3,f4,f5
-9,SALE,2026-11-11T14:19:41.572829842,manager,COMPLETED,,,,1280.0,,,,
-10,SALE,2026-11-11T14:46:35.211661348,manager,COMPLETED,,,,115.0,,,,
-11,SALE,2026-11-11T14:49:34.215214273,clerk1,COMPLETED,,,,115.0,,,,

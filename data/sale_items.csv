@@ -1,9 +1,1 @@
 txId,productId,productName,unitPrice,quantity,allocations
-9,P002,Fresh Milk 500mL,75.0,12,B0003:12
-9,P021,Yogurt Blueberry 500mL,140.0,1,B0019:1
-9,P001,Fresh Milk 200mL,40.0,1,B0032:1
-9,P023,Yogurt Peach Mango 500mL,100.0,2,B0020:2
-10,P002,Fresh Milk 500mL,75.0,1,B0003:1
-10,P001,Fresh Milk 200mL,40.0,1,B0032:1
-11,P001,Fresh Milk 200mL,40.0,1,B0032:1
-11,P002,Fresh Milk 500mL,75.0,1,B0003:1

@@ -45,6 +45,16 @@ import java.util.stream.Collectors;
  * + instead of user interface changing those objects directly, it calls methods here which:
  * 		+ check that signed-in user is allowed to do it
  * 		+ validate input and throw a AgriException if wrong, apply the change, and save everything to disk
+ * 
+ * The app is synchronized with local time to simulate real-life expiry situations.
+ * java.time.Clock provides the methods for this. 
+ * systemDefaultZone() : returns a Clock based on the system's default time zone
+ * 
+ * References:
+ * https://www.geeksforgeeks.org/java/java-time-clock-class-in-java/
+ * https://stackoverflow.com/questions/122105/how-to-filter-a-java-collection-based-on-predicate
+ * https://www.w3schools.com/java/java_collections.asp
+ * https://www.geeksforgeeks.org/java/java-method-references/
  */
 public final class AgriSystem {
 
@@ -52,7 +62,7 @@ public final class AgriSystem {
 
     private final DataStore store;
     private final Clock clock;
-    private final Map<String, User> users = new LinkedHashMap<>();
+    private final Map<String, User> users = new LinkedHashMap<>(); // LinkedHashMap to preserve insertion order
     private final List<Product> products = new ArrayList<>();
     private final Inventory inventory = new Inventory();
     private final List<Transaction> transactions = new ArrayList<>();
@@ -65,7 +75,7 @@ public final class AgriSystem {
         this(dataDir, Clock.systemDefaultZone());
     }
 
-    // opens the system with a given clock
+    // opens the system with a given clock, then loads existing data if exists, otherwise generate one
     public AgriSystem(Path dataDir, Clock clock) throws AgriException {
         this.store = new DataStore(dataDir);
         this.clock = clock;
@@ -78,17 +88,15 @@ public final class AgriSystem {
 
     private void load() throws StorageException {
         Map<String, String> meta = store.loadMeta();
-        for (User u : store.loadUsers()) {
+        for (User u : store.loadUsers()) { 
             users.put(u.getUsername().toLowerCase(), u);
         }
         products.addAll(store.loadProducts());
         store.loadInventory(inventory, meta);
         transactions.addAll(store.loadTransactions());
         try {
-            nextTransactionId = Integer.parseInt(meta.getOrDefault("nextTransactionId",
-                    Integer.toString(transactions.size() + 1)));
-            nextProductNumber = Integer.parseInt(meta.getOrDefault("nextProductNumber",
-                    Integer.toString(products.size() + 1)));
+            nextTransactionId = Integer.parseInt(meta.getOrDefault("nextTransactionId", Integer.toString(transactions.size() + 1)));
+            nextProductNumber = Integer.parseInt(meta.getOrDefault("nextProductNumber", Integer.toString(products.size() + 1)));
         } catch (NumberFormatException e) {
             throw new StorageException("The data file meta.csv is damaged. Fix or delete the file.", e);
         }
@@ -104,6 +112,7 @@ public final class AgriSystem {
         persist();
     }
 
+    // saves system's data to dir
     private void persist() throws StorageException {
         store.save(users.values(), products, inventory, transactions, nextTransactionId, nextProductNumber);
     }
@@ -162,10 +171,11 @@ public final class AgriSystem {
         return username == null ? null : users.get(username.toLowerCase());
     }
 
+    // filters a collection of users to find and return only those who have the role of "CLERK"
     public List<User> getClerks() {
-        return users.values().stream()
+        return users.values().stream() // takes User objects then turn them to stream to allow filtering
                 .filter(u -> u.getRole() == Role.CLERK)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()); // packages them into standard List
     }
 
     public String displayNameOf(String username) {
@@ -177,7 +187,8 @@ public final class AgriSystem {
 
 
     public List<Product> getProducts() {
-        return Collections.unmodifiableList(products);
+        return Collections.unmodifiableList(products); // returns a read-only version of the products list so .add(), .remove(), 
+        // and other similar methods wont work
     }
 
     public List<Product> getActiveProducts() {
@@ -208,7 +219,7 @@ public final class AgriSystem {
         Input.choice(category, "category");
         String cleanName = validateProductFields(null, name, price, shelfLifeDays);
         String cleanDescription = Input.optionalText(description, "Description", 120);
-        String id = String.format("P%03d", nextProductNumber++);
+        String id = String.format("P%03d", nextProductNumber++); // e.g. P001, P012, etc
         Product product = category.create(id, cleanName, cleanDescription, Fmt.round2(price), shelfLifeDays, true);
         products.add(product);
         persist();

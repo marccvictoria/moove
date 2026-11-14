@@ -285,3 +285,6 @@
     -fx-min-width: 190;
     -fx-pref-width: 350;
 }
+
+.row-voided { -fx-opacity: 0.55; }
+.row-voided .table-cell { -fx-strikethrough: true; }

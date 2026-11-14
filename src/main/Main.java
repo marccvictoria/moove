@@ -1,9 +1,12 @@
 /** *********************************************************
  * 
  * Moove
- * Program Description: An dairy-based agricultural data management system.
- * AI Use Disclosure: 
- *
+ * Program Description: A dairy-based agricultural data management system.
+ * AI Use Disclosure:
+ * Google AI Overview/Gemini assisted with errors that occurred during development. 
+ * Additionally, suggestions from it are also used in styling the app that align with our
+ * app design.
+ * 
  * @author Marc Tristan Victoria
  * @author	Denise Jade Barela
  * @created_date 2026-10-02 20:00 

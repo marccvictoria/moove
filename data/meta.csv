@@ -1,6 +1,6 @@
 key,value
-nextTransactionId,12
+nextTransactionId,1
 nextProductNumber,36
-nextBatchNumber,33
-nextIntakeNumber,3
-rawMilkLiters,400.0
+nextBatchNumber,32
+nextIntakeNumber,2
+rawMilkLiters,120.0

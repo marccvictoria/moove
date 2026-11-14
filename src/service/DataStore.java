@@ -69,12 +69,14 @@ class DataStore {
         try {
             Files.createDirectories(dir);
 
+            // users
             List<String> rows = new ArrayList<>();
             for (User u : users) {
                 rows.add(Csv.format(u.getUsername(), u.getDisplayName(), u.getRole().name(), u.getPassword()));
             }
-            Csv.write(dir.resolve(USERS), "username,displayName,role,password", rows);
+            Csv.write(dir.resolve(USERS), "username,displayName,role,password", rows); // Path, header, rows
 
+            // products
             rows = new ArrayList<>();
             for (Product p : products) {
                 rows.add(Csv.format(p.getId(), p.getCategory().name(), p.getName(), p.getDescription(),
@@ -83,15 +85,16 @@ class DataStore {
             }
             Csv.write(dir.resolve(PRODUCTS), "id,category,name,description,price,shelfLifeDays,active", rows);
 
+            // batches
             rows = new ArrayList<>();
             for (ProductBatch b : inventory.getBatches()) {
                 rows.add(Csv.format(b.getId(), b.getProductId(), Integer.toString(b.getUnitsProduced()),
                         Integer.toString(b.getUnitsRemaining()), b.getProducedOn().toString(),
                         b.getExpiresOn().toString(), Double.toString(b.getLitersUsed())));
             }
-            Csv.write(dir.resolve(BATCHES),
-                    "id,productId,unitsProduced,unitsRemaining,producedOn,expiresOn,litersUsed", rows);
+            Csv.write(dir.resolve(BATCHES), "id,productId,unitsProduced,unitsRemaining,producedOn,expiresOn,litersUsed", rows);
 
+            // intakes
             rows = new ArrayList<>();
             for (MilkIntake m : inventory.getIntakes()) {
                 rows.add(Csv.format(Integer.toString(m.getId()), m.getDate().toString(),
@@ -99,6 +102,7 @@ class DataStore {
             }
             Csv.write(dir.resolve(INTAKES), "id,date,liters,source,recordedBy", rows);
 
+            // transactions and sale items
             List<String> txRows = new ArrayList<>();
             List<String> itemRows = new ArrayList<>();
             for (Transaction t : transactions) {
@@ -123,8 +127,7 @@ class DataStore {
             rows.add(Csv.format("rawMilkLiters", Double.toString(inventory.getRawMilkLiters())));
             Csv.write(dir.resolve(META), "key,value", rows);
         } catch (IOException e) {
-            throw new StorageException("Could not save data to " + dir.toAbsolutePath()
-                    + ". Check that the folder is writable.", e);
+            throw new StorageException("Could not save data to " + dir.toAbsolutePath() + ". Check that the folder is writable.", e);
         }
     }
 

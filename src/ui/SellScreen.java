@@ -23,7 +23,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
  
 
-/* TODO:
+/* 
  * LHS panel
  * - product list in cards (selectable)
  * - a product card contains category, product name, price, how much in stock
@@ -196,7 +196,7 @@ public class SellScreen extends Screen {
         checkout.setDisable(readOnly || cart.isEmpty());
     }
  
-    // records the sale; the customer pays the exact total
+    // records the sale, the customer pays the exact total
     private void checkout() {
         Map<String, Integer> quantities = new LinkedHashMap<>();
         double total = 0;

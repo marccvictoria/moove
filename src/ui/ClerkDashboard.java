@@ -30,7 +30,15 @@ public class ClerkDashboard extends Dashboard {
 
     @Override
     protected List<Screen> createScreens() {
-        return Arrays.asList(new InventoryScreen(system, false),
-        		new SellScreen(system, false));
+        if (viewOnly) {
+            return Arrays.asList(
+                    new InventoryScreen(system, false),
+                    new TransactionScreen(system, user.getUsername(), true),
+                    new SellScreen(system, true)); // view only: cannot sell
+        }
+        return Arrays.asList(
+                new InventoryScreen(system, false),
+                new TransactionScreen(system, null, false),
+                new SellScreen(system, false)); // the clerk's own dashboard
     }
 }
