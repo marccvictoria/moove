@@ -89,10 +89,7 @@ BUTTER("Butter");
 private final String label;
 ```
 ```text
-@Override
-public String toString(){
-	return label;
-}
+public String toString(){return label;}
 ```
 Overriding `toString()` to return the `label` makes binding this enum directly to JavaFX UI elements like dropdown menus. This ensures users see polished text instead of raw code names, e.g. "Fresh milk" not LIQUID.
 <br><br>
@@ -187,8 +184,3 @@ one production run, with units made and units remaining, production and expiry d
 
 ### class MilkIntake
 A record of raw milk received, used to track how much milk is available for production. MilkIntake has a `id`, `date`, `liters`, `source` and `recordedBy`. 
-
-### 
-
-[not sure if included]
-### Transaction abstract class 
