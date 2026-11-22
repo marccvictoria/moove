@@ -37,12 +37,8 @@ stage.show();
 `showLogin()` renders the Login screen and `stage.show()` makes the main application window visible.
 
 ```text
-catch (AgriException e)
-```
-[insert description/refer to exception]
-
-```text
 Dialogs.error("Moove application could not start.\n\n" + e.getMessage());
 Platform.exit();
 ```
 Pops up a clean error dialog `Dialog.error`, details the issue, and shuts down the JavaFX runtime by `Platform.exit()`
+

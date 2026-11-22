@@ -28,7 +28,6 @@
 
 ## Architecture
 
-
 ```text
 src/
 ├── main/          # Application entry point
@@ -53,13 +52,13 @@ The UI communicates with the system through `AgriSystem`, which handles permissi
 
 ## Code Walkthrough
 
-- **Application initialization** – `main.Main` [AppInitialization.md](AppInitialization.md) 
-- **Domain models** – `model` [DomainModels.md](DomainModels.md) 
-- **Business logic** – `service.AgriSystem` [BusinessLogic.md](BusinessLogic.md) 
-- **User interface** – `ui` [UserInterface.md](UserInterface.md) 
-- **Reusable components** – `components` [ReusableComponents.md](ReusableComponents.md) 
-- **Data persistence** – `service.DataStore` and `service.Csv` [DataPersistence.md](DataPersistence.md) 
-- **Validation and formatting** – `util` [Validation.md](Validation.md) 
+- **Application initialization** – `main.Main` [AppInitialization.md](docs/AppInitialization.md) 
+- **Domain models** – `model` [DomainModels.md](docs/DomainModels.md) 
+- **Business logic** – `service.AgriSystem` [BusinessLogic.md](docs/BusinessLogic.md) 
+- **User interface** – `ui` [UserInterface.md](docs/UserInterface.md) 
+- **Reusable components** – `components` [ReusableComponents.md](docs/ReusableComponents.md) 
+- **Data persistence** – `service.DataStore` and `service.Csv` [DataPersistence.md](docs/DataPersistence.md) 
+- **Validation and formatting** – `util` [Validation.md](docs/Validation.md) 
 
 ## Data Storage
 
@@ -81,5 +80,5 @@ To restore the starter data, close the application and delete the `data/` direct
 
 ## Contributors
 **Marc Tristan Victoria (https://github.com/marccvictoria)**
+**Denise Jade Barela (https://github.com/denlxe)** 
 
-**Denise Jade Barela (https://github.com/denlxe)**
