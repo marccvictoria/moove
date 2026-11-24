@@ -122,7 +122,7 @@ public class TransactionScreen extends Screen {
         }
  
         // filters
-        typeFilter.getItems().addAll(ALL_TYPES, "Sale", "Donation", "Processing fee", "Cash out", "Write-off");
+        typeFilter.getItems().addAll(ALL_TYPES, "Sale", "Donation", "Processing fee", "Write-off");
         typeFilter.setValue(ALL_TYPES);
         typeFilter.valueProperty().addListener((o, a, b) -> applyFilter());
         search.setPromptText("Search details, donor, person...");
